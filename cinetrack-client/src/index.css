@@ -21,7 +21,7 @@
     --accent-foreground: 0 0% 9%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 89.8%;
+    --border: 0 0% 0%;
     --input: 0 0% 89.8%;
     --ring: 0 0% 3.9%;
     --chart-1: 12 76% 61%;
@@ -63,20 +63,4 @@
     @apply border-border;
   }
   
-  body {
-    @apply bg-background text-foreground;
-    font-family: 'Bebas Neue', sans-serif; /* Set global font here */
-  }
-
-  h1 {
-    @apply text-4xl font-bold; /* Set size and weight for h1 */
-  }
-
-  h2 {
-    @apply text-3xl font-semibold; /* Set size and weight for h2 */
-  }
-
-  p {
-    @apply text-base; /* Set size for paragraph */
-  }
 }

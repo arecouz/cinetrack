@@ -5,7 +5,10 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        bebas: ['Bebas+Neue', 'serif'],
+        bebas: ['Bebas Neue', 'serif'],
+      },
+      backgroundImage: {
+        test: 'url("/inceptionTEST.jpg")', // Note the URL and quotes
       },
       borderRadius: {
         lg: 'var(--radius)',
