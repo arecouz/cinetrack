@@ -7,10 +7,9 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import LogIn from './Login';
+import SignUp from './SignUp';
 
 const AuthForm = () => {
   return (
@@ -35,7 +34,7 @@ const AuthForm = () => {
             <CardTitle>sign up</CardTitle>
           </CardHeader>
           <CardContent>
-            <LogIn />
+            <SignUp />
           </CardContent>
         </Card>
       </TabsContent>

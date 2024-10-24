@@ -15,8 +15,8 @@ import {
 import { Input } from '@/components/ui/input';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
-const LogIn = () => {
-  // Updated schema to include password
+const SignUp = () => {
+
   const formSchema = z.object({
     username: z
       .string()
@@ -28,8 +28,8 @@ const LogIn = () => {
       }),
     password: z
       .string()
-      .min(1, {
-        message: 'Password is required.',
+      .min(6, {
+        message: 'Password must be at least 6 characters.',
       })
       .max(50, {
         message: 'Password cannot exceed 50 characters.',
@@ -79,7 +79,7 @@ const LogIn = () => {
           control={form.control}
           name="password"
           render={({ field }) => (
-            <FormItem className="">
+            <FormItem className=''>
               <div className="space-y-1">
                 <FormLabel>password</FormLabel>
                 <FormControl>
@@ -95,12 +95,10 @@ const LogIn = () => {
           )}
         />
         <p></p>
-        <Button className="mt-4" type="submit">
-          Log in
-        </Button>
+        <Button className='mt-4' type="submit">Sign up!</Button>
       </form>
     </Form>
   );
 };
 
-export default LogIn;
+export default SignUp;

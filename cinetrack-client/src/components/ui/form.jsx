@@ -105,21 +105,19 @@ const FormMessage = React.forwardRef(({ className, children, ...props }, ref) =>
   const { error, formMessageId } = useFormField()
   const body = error ? String(error?.message) : children
 
-  if (!body) {
-    return null
-  }
-
   return (
-    (<p
+    <p
       ref={ref}
       id={formMessageId}
-      className={cn("text-sm font-medium text-destructive", className)}
-      {...props}>
-      {body}
-    </p>)
+      className={cn("text-sm", error ? "text-destructive" : "text-transparent", className)} // Use "text-transparent" when there's no error
+      {...props}
+    >
+      {body || <>&nbsp;</>} {/* Render non-breaking space if there's no message */}
+    </p>
   );
 })
 FormMessage.displayName = "FormMessage"
+
 
 export {
   useFormField,
