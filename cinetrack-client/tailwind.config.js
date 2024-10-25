@@ -8,7 +8,7 @@ export default {
         bebas: ['Bebas Neue', 'serif'],
       },
       backgroundImage: {
-        test: 'url("/inceptionTEST.jpg")', // Note the URL and quotes
+        test: 'url("/test.png")', // Note the URL and quotes
       },
       borderRadius: {
         lg: 'var(--radius)',
