@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react';
+import { SearchBar } from '@/components/ui/SearchBar';
 import {
   Command,
   CommandDialog,
@@ -21,20 +22,7 @@ const Search = () => {
 
   return (
     <div className="flex">
-      <Command>
-        <CommandInput 
-          ref={inputRef}
-          placeholder="Search for a movie" 
-        />
-        <CommandList>
-          <CommandEmpty>No results found.</CommandEmpty>
-          <CommandGroup heading="Suggestions">
-            <CommandItem>Inception</CommandItem>
-            <CommandItem>Emoji Movie</CommandItem>
-            <CommandItem>King Kong</CommandItem>
-          </CommandGroup>
-        </CommandList>
-      </Command>
+      <SearchBar ref={inputRef} placeholder="Search for a movie..." />
     </div>
   );
 };
