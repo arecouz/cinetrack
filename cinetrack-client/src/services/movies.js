@@ -1,7 +1,11 @@
 import axios from 'axios';
 
-const API_URL = process.env.API_URL;
-const API_KEY = process.env.API_KEY;
+const API_URL = import.meta.env.VITE_API_URL;
+const API_KEY = import.meta.env.VITE_API_KEY;
+
+if (!API_KEY || !API_URL) {
+  throw new Error('Missing API_URL or API_KEY in environment variables');
+}
 
 export const searchMovies = async (
   query,
@@ -9,8 +13,10 @@ export const searchMovies = async (
 ) => {
   try {
     const options = {
+      headers: {
+        Authorization: API_KEY,
+      },
       params: {
-        api_key: API_KEY,
         query,
         include_adult: includeAdult,
         language,
