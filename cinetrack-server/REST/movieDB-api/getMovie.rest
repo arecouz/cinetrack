@@ -1,0 +1,3 @@
+GET https://api.themoviedb.org/3/search/movie?query=inception&include_adult=true&language=en-US&page=1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI2ZTBmMjVmNzFhNjgxNjg5NGIxNzQ1MTEwNDE3NWQxNiIsIm5iZiI6MTcyOTg2ODk5My43NDUxNjgsInN1YiI6IjY3MWJiM2JlNDU0MmUzNzFmZTBhODA2YyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.scr7GWCpj8TPmOOz9DnwETY4aU3qSYflulesrXHGHlg 
