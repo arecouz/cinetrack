@@ -1,35 +1,39 @@
-import { useState } from 'react';
-
-import AuthForm from './components/AuthForm';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from 'react-router-dom';
 import Sidebar from './components/Sidebar';
 import Search from './components/Search';
+import DisplayMovie from './components/DisplayMovie'
 import MyMovies from './components/MyMovies';
 import Stats from './components/Stats';
 import LogOut from './components/LogOut';
 import LogIn from './components/LogIn';
 
 const App = () => {
-  const [selected, setSelected] = useState('search');
-
-  const renderContent = () => {
-    switch (selected) {
-      case 'myMovies':
-        return <MyMovies />;
-      case 'stats':
-        return <Stats />;
-      case 'logOut':
-        return <LogOut />;
-      case 'search':
-      default:
-        return <Search />;
-    }
-  };
-
   return (
-    <div className="flex flex-row">
-      <Sidebar selected={selected} setSelected={setSelected} />
-      <div className="p-2">{renderContent()}</div>
-    </div>
+    <Router>
+      <div className="flex h-screen w-full overflow-hidden">
+        <div className="flex-none">
+          <Sidebar />
+        </div>
+        <main className="flex-1 overflow-auto">
+          <div className="p-6">
+            <Routes>
+              <Route path="/" element={<Navigate to="/search" replace />} />
+              <Route path="/search" element={<Search />} />
+              <Route path="/search/:id" element={<DisplayMovie />} />
+              <Route path="/my-movies" element={<MyMovies />} />
+              <Route path="/stats" element={<Stats />} />
+              <Route path="/logout" element={<LogOut />} />
+              <Route path="/login" element={<LogIn />} />
+            </Routes>
+          </div>
+        </main>
+      </div>
+    </Router>
   );
 };
 

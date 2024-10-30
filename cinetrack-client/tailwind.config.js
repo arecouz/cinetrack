@@ -6,6 +6,7 @@ export default {
     extend: {
       fontFamily: {
         bebas: ['Bebas Neue', 'serif'],
+        roboto: ['Roboto', 'sans-serif'],
       },
       backgroundImage: {
         test: 'url("/test.png")', // Note the URL and quotes
@@ -16,6 +17,7 @@ export default {
         sm: 'calc(var(--radius) - 4px)',
       },
       colors: {
+        'custom-red': '#D81B60',
         background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',
         card: {

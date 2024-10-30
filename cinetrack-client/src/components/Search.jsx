@@ -1,9 +1,11 @@
 import { useEffect, useRef, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import { SearchBar } from '@/components/ui/SearchBar';
 import { searchMovies } from '@/services/movies';
 import DisplaySearch from './DisplaySearch.jsx';
 
 const Search = () => {
+  const { state } = useLocation();
   const [query, setQuery] = useState('');
   const inputRef = useRef(null);
   const [searchResult, setSearchResult] = useState([]);
@@ -19,7 +21,7 @@ const Search = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (!query.trim()) return;
-    console.log(`Searching: ${query}`);
+
     try {
       const response = await searchMovies(query);
       setSearchResult(response.results || []);
@@ -35,14 +37,14 @@ const Search = () => {
         <form onSubmit={handleSubmit}>
           <SearchBar
             ref={inputRef}
-            placeholder="Search for a movie"
+            placeholder={state?.searchQuery || 'Search for a movie'}
             value={query}
             onChange={handleInputChange}
           />
         </form>
       </div>
       <div className="flex-1 overflow-y-auto">
-        <DisplaySearch searchResults={searchResult} />
+        <DisplaySearch searchResults={searchResult} setQuery={setQuery} />
       </div>
     </div>
   );
