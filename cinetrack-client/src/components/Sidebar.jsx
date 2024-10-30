@@ -10,11 +10,14 @@ const Sidebar = () => {
     { id: 'logOut', label: 'Log out', path: '/logout' }
   ];
 
-  const baseClassName = "block text-center font-bebas text-2xl mt-5 m-5 hover:underline cursor-pointer";
+  const baseClassName = "block text-center font-bebas text-lg sm:text-2xl mt-1 sm:mt-5 mx-1 sm:m-5 hover:underline cursor-pointer";
 
   return (
-    <div className="flex flex-col h-screen">
-      <Link to="/search" className="font-bebas text-4xl p-2">
+    <div className="flex flex-col h-full">
+      <Link 
+        to="/search" 
+        className="font-bebas text-2xl sm:text-4xl p-1 sm:p-2"
+      >
         CineStack
       </Link>
       <nav className="w-fit flex-grow">

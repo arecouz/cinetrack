@@ -34,7 +34,7 @@ const DisplaySearch = ({ searchResults, setQuery }) => {
   };
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 m-8">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2 m3">
       {filteredResults.map((result) => (
         <div
           key={result.id}

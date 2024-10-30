@@ -20,7 +20,7 @@ const App = () => {
           <Sidebar />
         </div>
         <main className="flex-1 overflow-auto">
-          <div className="p-6">
+          <div className="xl:p-5 lg:p-4 md:p-3 sm:p-0">
             <Routes>
               <Route path="/" element={<Navigate to="/search" replace />} />
               <Route path="/search" element={<Search />} />

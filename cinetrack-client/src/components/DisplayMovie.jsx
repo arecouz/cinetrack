@@ -3,6 +3,7 @@ import { getCredits } from '../services/movies';
 import { useParams, useLocation } from 'react-router-dom';
 import MovieRating from './MovieRating';
 import Persons from './Persons';
+import { Separator } from '@radix-ui/react-select';
 
 const DisplayMovie = () => {
   const { id } = useParams();
@@ -41,7 +42,7 @@ const DisplayMovie = () => {
                   : 'https://via.placeholder.com/100x150?text=No+Image'
               }
               alt={movie.title}
-              className="hidden sm:block w-[40%] rounded-md object-contain ml-9"
+              className="hidden sm:block w-[40%] xl:p-14 rounded-md object-contain ml-9"
             />
             <div className="flex flex-col items-center justify-center">
               <div className="font-bebas text-7xl text-center text-white mt-12">
@@ -50,7 +51,7 @@ const DisplayMovie = () => {
               <div className="font-bebas text-3xl text-center text-white">
                 {movie.release_date.split('-')[0]}
               </div>
-              <div className="text-white flex italic text-center items-center justify-center p-8 xl:p-15">
+              <div className="text-white flex italic text-center items-center justify-center p-3 xl:p-25">
                 {movie.overview}
               </div>
               <div className="flex items-center justify-center mb-12">
@@ -58,12 +59,12 @@ const DisplayMovie = () => {
               </div>
             </div>
           </div>
-          <div className="font-bebas text-4xl mt-9 flex justify-center items-center space-x-2">
+          <div className="font-bebas text-4xl mt-9">
             <div className="flex text-accent">Cast</div>
-            <div className="flex">and</div>
-            <div className="flex text-custom-red">Crew</div>
           </div>
           <Persons credits={credits.cast} />
+          <br></br>
+          <div className="flex font-bebas text-4xl mt-9 text-custom-red">Crew</div>
           <Persons credits={credits.crew} />
         </div>
       </div>

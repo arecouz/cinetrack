@@ -10,7 +10,7 @@ const Persons = ({ credits, title }) => {
   return (
     <div className="w-full">
       <h3 className="text-lg font-bold">{title}</h3>
-      <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-5 xl:grid-cols-7 gap-3 m-1">
+      <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-7 gap-3 m-1">
         {reducedCredits.map((person) => (
           <div
             className={
@@ -18,7 +18,7 @@ const Persons = ({ credits, title }) => {
                 ? 'border-accent border-4  p-1 shadow-sm flex flex-col justify-between h-full '
                 : 'border-custom-red border-4  p-1 shadow-sm flex flex-col justify-between h-full '
             }
-            key={person.key}
+            key={person.credit_id}
           >
             <p className="font-semibold text-xl text-center">{person.name}</p>
             {person.character ? (
