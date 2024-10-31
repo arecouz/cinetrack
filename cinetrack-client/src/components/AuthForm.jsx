@@ -11,10 +11,10 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import LogIn from './Login';
 import SignUp from './SignUp';
 
-const AuthForm = ({ setUser }) => {
+const AuthForm = (setUser) => {
   return (
     <div className="flex items-center justify-center h-screen flex-col">
-      <div >
+      <div>
         <div className="font-bebas text-8xl">cinetrack</div>
       </div>
 
@@ -29,8 +29,8 @@ const AuthForm = ({ setUser }) => {
             <CardHeader>
               <CardTitle>Log in</CardTitle>
             </CardHeader>
-            <CardContent className='mr-8 ml-8'>
-              <LogIn setUser={setUser}/>
+            <CardContent className="mr-8 ml-8">
+              <LogIn setUser={setUser} />
             </CardContent>
           </Card>
         </TabsContent>
@@ -39,8 +39,8 @@ const AuthForm = ({ setUser }) => {
             <CardHeader>
               <CardTitle>sign up</CardTitle>
             </CardHeader>
-            <CardContent className='mr-8 ml-8'>
-              <SignUp setUser={setUser}/>
+            <CardContent className="mr-8 ml-8">
+              <SignUp setUser={setUser} />
             </CardContent>
           </Card>
         </TabsContent>

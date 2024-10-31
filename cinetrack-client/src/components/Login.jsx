@@ -13,9 +13,11 @@ import {
 } from '@/components/ui/form';
 import { FormInput } from './ui/FormInput';
 import usersServices from '@/services/users';
+import { useNavigate } from 'react-router-dom';
 
 const LogIn = ({ setUser }) => {
   const [error, setError] = useState(''); // State for independent error message
+  const navigate = useNavigate()
 
   const formSchema = z.object({
     username: z
@@ -45,16 +47,16 @@ const LogIn = ({ setUser }) => {
   });
 
   const onSubmit = async (values) => {
-    setError(''); // Reset the independent error message on each submission
+    console.log(values);
+    setError('');
     try {
       console.log('logging in with: ', values);
       const response = await usersServices.login(values);
-      setUser(response);
-      window.localStorage.setItem('user', JSON.stringify(response.username));
+      console.log(response);
+      window.localStorage.setItem('user', JSON.stringify(response));
+      navigate('/search');
     } catch (error) {
-      console.log(error)
-      setError(error.response);
-      console.error(error);
+      console.log(error);
     }
   };
 

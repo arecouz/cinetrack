@@ -15,8 +15,10 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import usersServices from '@/services/users';
+import { useNavigate } from 'react-router-dom';
 
 const SignUp = ({ setUser }) => {
+  const navigate = useNavigate();
   const [error, setError] = useState(''); // State for independent error message
   const formSchema = z.object({
     username: z
@@ -48,15 +50,14 @@ const SignUp = ({ setUser }) => {
   const onSubmit = async (values) => {
     try {
       await usersServices.addUser(values);
-      const loginResponse = await usersServices.login(values);
-      setUser(loginResponse);
-      window.localStorage.setItem(
-        'user',
-        JSON.stringify(loginResponse.username)
-      );
+
+      console.log('logging in with: ', values);
+      const response = await usersServices.login(values);
+      console.log(response);
+      window.localStorage.setItem('user', JSON.stringify(response));
+      navigate('/search');
     } catch (error) {
-      setError(error.response.data.error);
-      console.error(error);
+      console.log(error);
     }
   };
 
