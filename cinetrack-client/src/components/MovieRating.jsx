@@ -1,16 +1,35 @@
 import { Star } from 'lucide-react';
 import { useState } from 'react';
+import { postToMyMovies } from '@/services/myMovies';
 
-const MovieRating = () => {
+
+const MovieRating = (movie) => {
   const [rating, setRating] = useState(0);
   const [hover, setHover] = useState(0);
+
+  
+  const handleClick = (star) => {
+    console.log("inside movie rating", movie)
+    setRating(star);
+    try {
+      const myMovie = {
+        title: movie.title,
+        date: new Date(),
+        poster: movie.poster,
+        rating: star,
+      };
+      const response = postToMyMovies(myMovie);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <div className="flex flex-row gap-1 mt-2">
       {[1, 2, 3, 4, 5].map((star) => (
         <button
           key={star}
-          onClick={() => setRating(star)}
+          onClick={() => handleClick(star)}
           onMouseEnter={() => setHover(star)}
           onMouseLeave={() => setHover(0)}
           className="focus:outline-none transition-colors duration-200"

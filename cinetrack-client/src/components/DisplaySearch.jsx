@@ -1,12 +1,11 @@
 // DisplaySearch.js
 import { useNavigate } from 'react-router-dom';
-import MovieRating from './MovieRating';
 
 const DisplaySearch = ({ searchResults, setQuery }) => {
   const navigate = useNavigate();
 
   if (!searchResults || searchResults.length === 0) {
-    return <p className="text-gray-500 ml-8 mt-3">No results</p>;
+    return <p className="text-gray-500  ml-9">No results</p>;
   }
 
   const filteredResults = searchResults.filter((result) => result.poster_path);

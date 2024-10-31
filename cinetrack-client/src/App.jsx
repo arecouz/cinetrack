@@ -10,7 +10,6 @@ import Search from './components/Search';
 import DisplayMovie from './components/DisplayMovie';
 import MyMovies from './components/MyMovies';
 import Stats from './components/Stats';
-import LogOut from './components/LogOut';
 import LogIn from './components/LogIn';
 
 const App = () => {
@@ -36,7 +35,6 @@ const App = () => {
               <Route path="/search/:id" element={<DisplayMovie ref={displayMovieRef}/>} />
               <Route path="/my-movies" element={<MyMovies />} />
               <Route path="/stats" element={<Stats />} />
-              <Route path="/logout" element={<LogOut />} />
               <Route path="/login" element={<LogIn />} />
             </Routes>
           </div>

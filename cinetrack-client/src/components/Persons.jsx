@@ -13,7 +13,7 @@ const JOB_PRIORITY = {
 
 const Persons = ({ credits, title }) => {
   if (!credits || credits.length === 0) {
-    return <p>No {title} available</p>;
+    return <p>No credits available</p>;
   }
 
   // Helper function to sort crew members by priority
@@ -23,7 +23,7 @@ const Persons = ({ credits, title }) => {
     return priorityA - priorityB;
   };
 
-  const limitedCredits = credits.slice(0, 100);
+  const limitedCredits = credits   // .slice(0, 350);
   
   // Separate cast and crew
   const cast = limitedCredits.filter(person => person.character);

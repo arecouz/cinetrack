@@ -1,8 +1,10 @@
 'use client';
+import { useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { Button } from '@/components/ui/button';
+import { FormInput } from './ui/formInput';
 import {
   Form,
   FormControl,
@@ -12,11 +14,10 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import usersServices from '@/services/users';
 
-const SignUp = () => {
-
+const SignUp = ({ setUser }) => {
+  const [error, setError] = useState(''); // State for independent error message
   const formSchema = z.object({
     username: z
       .string()
@@ -44,9 +45,19 @@ const SignUp = () => {
     },
   });
 
-  const onSubmit = (values) => {
-    console.log(values);
-    // Add your login logic here
+  const onSubmit = async (values) => {
+    try {
+      await usersServices.addUser(values);
+      const loginResponse = await usersServices.login(values);
+      setUser(loginResponse);
+      window.localStorage.setItem(
+        'user',
+        JSON.stringify(loginResponse.username)
+      );
+    } catch (error) {
+      setError(error.response.data.error);
+      console.error(error);
+    }
   };
 
   return (
@@ -63,10 +74,11 @@ const SignUp = () => {
               <div className="space-y-1">
                 <FormLabel>username</FormLabel>
                 <FormControl>
-                  <Input
+                  <FormInput
                     type="text"
                     // placeholder="Enter username"
                     {...field}
+                    autoComplete="current-username"
                   />
                 </FormControl>
                 <FormMessage />
@@ -79,14 +91,15 @@ const SignUp = () => {
           control={form.control}
           name="password"
           render={({ field }) => (
-            <FormItem className=''>
+            <FormItem className="">
               <div className="space-y-1">
                 <FormLabel>password</FormLabel>
                 <FormControl>
-                  <Input
+                  <FormInput
                     type="password"
                     // placeholder="Enter password"
                     {...field}
+                    autoComplete="current-password"
                   />
                 </FormControl>
                 <FormMessage />
@@ -94,8 +107,10 @@ const SignUp = () => {
             </FormItem>
           )}
         />
-        <p></p>
-        <Button className='mt-4' type="submit">Sign up!</Button>
+        {error && <div className="text-red-500 text-sm">{error}</div>}
+        <Button className="mt-4" type="submit">
+          Sign up!
+        </Button>
       </form>
     </Form>
   );

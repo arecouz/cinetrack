@@ -1,22 +1,22 @@
-'use client';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
+import { useState } from 'react'; // Import useState to manage independent error messages
 import { Button } from '@/components/ui/button';
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { FormInput } from './ui/FormInput';
+import usersServices from '@/services/users';
 
-const LogIn = () => {
-  // Updated schema to include password
+const LogIn = ({ setUser }) => {
+  const [error, setError] = useState(''); // State for independent error message
+
   const formSchema = z.object({
     username: z
       .string()
@@ -44,9 +44,18 @@ const LogIn = () => {
     },
   });
 
-  const onSubmit = (values) => {
-    console.log(values);
-    // Add your login logic here
+  const onSubmit = async (values) => {
+    setError(''); // Reset the independent error message on each submission
+    try {
+      console.log('logging in with: ', values);
+      const response = await usersServices.login(values);
+      setUser(response);
+      window.localStorage.setItem('user', JSON.stringify(response.username));
+    } catch (error) {
+      console.log(error)
+      setError(error.response);
+      console.error(error);
+    }
   };
 
   return (
@@ -60,16 +69,18 @@ const LogIn = () => {
           name="username"
           render={({ field }) => (
             <FormItem>
-              <div className="space-y-1">
-                <FormLabel>username</FormLabel>
+              <div className="space-y-1 ">
+                <FormLabel>Username</FormLabel>
                 <FormControl>
-                  <Input
+                  <FormInput
                     type="text"
-                    // placeholder="Enter username"
                     {...field}
+                    autoComplete="current-username"
                   />
                 </FormControl>
-                <FormMessage />
+                <FormMessage>
+                  {form.formState.errors.username?.message}
+                </FormMessage>
               </div>
             </FormItem>
           )}
@@ -79,24 +90,28 @@ const LogIn = () => {
           control={form.control}
           name="password"
           render={({ field }) => (
-            <FormItem className="">
+            <FormItem>
               <div className="space-y-1">
-                <FormLabel>password</FormLabel>
+                <FormLabel>Password</FormLabel>
                 <FormControl>
-                  <Input
+                  <FormInput
                     type="password"
-                    // placeholder="Enter password"
                     {...field}
+                    autoComplete="current-password"
                   />
                 </FormControl>
-                <FormMessage />
+                <FormMessage>
+                  {form.formState.errors.password?.message}
+                </FormMessage>
               </div>
             </FormItem>
           )}
         />
-        <p></p>
+
+        {error && <div className="text-red-500 text-sm">{error}</div>}
+
         <Button className="mt-4" type="submit">
-          Log in
+          Log In
         </Button>
       </form>
     </Form>

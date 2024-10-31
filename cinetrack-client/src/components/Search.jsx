@@ -41,6 +41,7 @@ const Search = () => {
             value={query}
             onChange={handleInputChange}
           />
+    
         </form>
       </div>
       <div className="flex-1 overflow-y-auto">
