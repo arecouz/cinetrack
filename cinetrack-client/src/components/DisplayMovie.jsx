@@ -1,16 +1,20 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef, forwardRef, useImperativeHandle } from 'react';
 import { getCredits } from '../services/movies';
 import { useParams, useLocation } from 'react-router-dom';
 import MovieRating from './MovieRating';
 import Persons from './Persons';
-import { Separator } from '@radix-ui/react-select';
 
-const DisplayMovie = () => {
+const DisplayMovie = forwardRef((props, ref) => {
   const { id } = useParams();
   const { state } = useLocation();
   const movie = state.movie;
   const [credits, setCredits] = useState(null);
 
+  // Refs for "Cast" and "Crew" sections
+  const castRef = useRef(null);
+  const crewRef = useRef(null);
+
+  // Fetch movie credits when component mounts
   useEffect(() => {
     const fetchMovie = async () => {
       try {
@@ -25,15 +29,25 @@ const DisplayMovie = () => {
     fetchMovie();
   }, [id]);
 
+  // Use imperative handle to expose the scrollToSection function
+  useImperativeHandle(ref, () => ({
+    scrollToSection: (section) => {
+      if (section === 'cast' && castRef.current) {
+        castRef.current.scrollIntoView({ behavior: 'smooth' });
+      } else if (section === 'crew' && crewRef.current) {
+        crewRef.current.scrollIntoView({ behavior: 'smooth' });
+      }
+    },
+  }));
+
   if (!credits) {
     return <p>Loading...</p>;
   }
 
   return (
     <div className="border-8 p-4 shadow-sm h-full w-full">
-      <div className="flex flex-col sm:flex-row ">
-        <div className="flex flex-col items-center ">
-
+      <div className="flex flex-col sm:flex-row">
+        <div className="flex flex-col items-center">
           <div className="flex flex-col sm:flex-row bg-black items-center lg:p-7 xl:p-15">
             <img
               src={
@@ -59,17 +73,22 @@ const DisplayMovie = () => {
               </div>
             </div>
           </div>
+
+          {/* Cast Section */}
           <div className="font-bebas text-4xl mt-9">
-            <div className="flex text-accent">Cast</div>
+            <div ref={castRef} className="flex text-accent">Cast</div>
           </div>
           <Persons credits={credits.cast} />
-          <br></br>
-          <div className="flex font-bebas text-4xl mt-9 text-custom-red">Crew</div>
+
+          {/* Crew Section */}
+          <div className="flex font-bebas text-4xl mt-9 text-custom-red">
+            <div ref={crewRef}>Crew</div>
+          </div>
           <Persons credits={credits.crew} />
         </div>
       </div>
     </div>
   );
-};
+});
 
 export default DisplayMovie;
