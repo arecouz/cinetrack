@@ -11,7 +11,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import LogIn from './Login';
 import SignUp from './SignUp';
 
-const AuthForm = (setUser) => {
+const AuthForm = ({ setUser }) => {
   return (
     <div className="flex items-center justify-center h-screen flex-col">
       <div>

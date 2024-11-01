@@ -11,7 +11,6 @@ import DisplayMovie from './components/DisplayMovie';
 import MyMovies from './components/MyMovies';
 import Stats from './components/Stats';
 import AuthForm from './components/AuthForm';
-import  LogOut  from './components/LogOut'
 
 const App = () => {
   const displayMovieRef = useRef(null);
@@ -20,8 +19,8 @@ const App = () => {
   useEffect(() => {
     const localUser = window.localStorage.getItem('user');
     if (localUser) {
-      const user = JSON.parse(localUser);
-      setUser(user);
+      const JsonUser = JSON.parse(localUser);
+      setUser(JsonUser);
     }
   }, []);
 
@@ -33,13 +32,7 @@ const App = () => {
 
   // Check user authentication and redirect to /login if user is null
   if (!user) {
-    return (
-      <Router>
-        <Routes>
-          <Route path="*" element={<AuthForm />} />
-        </Routes>
-      </Router>
-    );
+    return <AuthForm setUser={setUser} />;
   }
 
   // If the user is authenticated, render the main app
@@ -47,7 +40,7 @@ const App = () => {
     <Router>
       <div className="flex h-screen w-full overflow-hidden">
         <div className="flex-none">
-          <Sidebar scrollToSection={scrollToSection} />
+          <Sidebar scrollToSection={scrollToSection} setUser={setUser} />
         </div>
         <main className="flex-1 overflow-auto">
           <div className="xl:p-5 lg:p-4 md:p-3 sm:p-0">
@@ -60,8 +53,6 @@ const App = () => {
               />
               <Route path="/my-movies" element={<MyMovies />} />
               <Route path="/stats" element={<Stats />} />
-              <Route path="/login" element={<AuthForm setUser={setUser} />} />
-              <Route path='/logout' element={<LogOut setUser={setUser} />} />
             </Routes>
           </div>
         </main>

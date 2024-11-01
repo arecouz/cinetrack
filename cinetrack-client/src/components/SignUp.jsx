@@ -55,9 +55,13 @@ const SignUp = ({ setUser }) => {
       const response = await usersServices.login(values);
       console.log(response);
       window.localStorage.setItem('user', JSON.stringify(response));
-      navigate('/search');
     } catch (error) {
-      console.log(error);
+      console.error(error);
+      if (error.response.data.error) {
+        setError('username already taken');
+      } else {
+        setError('An error occurred. Please try again later.');
+      }
     }
   };
 

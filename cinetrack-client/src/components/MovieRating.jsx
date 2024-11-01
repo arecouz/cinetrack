@@ -2,23 +2,26 @@ import { Star } from 'lucide-react';
 import { useState } from 'react';
 import { postToMyMovies } from '@/services/myMovies';
 
-
-const MovieRating = (movie) => {
+const MovieRating = ({ movie }) => {
   const [rating, setRating] = useState(0);
   const [hover, setHover] = useState(0);
 
-  
   const handleClick = (star) => {
-    console.log("inside movie rating", movie)
+    console.log('Mrating', movie);
+    const userPreParse = localStorage.getItem('user');
+    const user = JSON.parse(userPreParse);
+    const token = user.token;
     setRating(star);
     try {
       const myMovie = {
         title: movie.title,
         date: new Date(),
-        poster: movie.poster,
+        poster: movie.poster_path,
         rating: star,
       };
-      const response = postToMyMovies(myMovie);
+      console.log('delete me', myMovie);
+      const response = postToMyMovies(myMovie, token);
+      console.log(response);
     } catch (error) {
       console.error(error);
     }

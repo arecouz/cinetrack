@@ -69,7 +69,8 @@ const DisplayMovie = forwardRef((props, ref) => {
                 {movie.overview}
               </div>
               <div className="flex items-center justify-center mb-12">
-                <MovieRating />
+                {/* Rating a movie adds it to the MyMovies section */}
+                <MovieRating movie={movie}/>
               </div>
             </div>
           </div>
