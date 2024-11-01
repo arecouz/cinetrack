@@ -15,7 +15,6 @@ myMoviesRouter.get('/:id', async (request, response) => {
 });
 
 myMoviesRouter.post('/', async (request, response) => {
-  console.log('myMovies POST', request.token)
   const { title, date, poster, rating } = request.body;
   const decodedToken = jwt.verify(request.token, process.env.SECRET);
   if (!decodedToken.id) {
