@@ -31,7 +31,11 @@ const MyMovies = ({ user }) => {
       </div>
       {userInfo && userInfo.movies.length > 0 ? (
         <div>
-          <DisplaySearch searchResults={userInfo.movies} deletable={true}/>
+          <DisplaySearch
+            searchResults={userInfo.movies}
+            deletable={true}
+            reversed={true}
+          />
         </div>
       ) : (
         <div>
