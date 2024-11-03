@@ -11,6 +11,7 @@ import DisplayMovie from './components/DisplayMovie';
 import MyMovies from './components/MyMovies';
 import Stats from './components/Stats';
 import AuthForm from './components/AuthForm';
+import { Toaster } from './components/ui/toaster';
 
 const App = () => {
   const displayMovieRef = useRef(null);
@@ -51,9 +52,10 @@ const App = () => {
                 path="/search/:id"
                 element={<DisplayMovie ref={displayMovieRef} />}
               />
-              <Route path="/my-movies" element={<MyMovies />} />
+              <Route path="/my-movies" element={<MyMovies user={user} />} />
               <Route path="/stats" element={<Stats />} />
             </Routes>
+            <Toaster />
           </div>
         </main>
       </div>

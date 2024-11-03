@@ -15,14 +15,14 @@ myMoviesRouter.get('/:id', async (request, response) => {
 });
 
 myMoviesRouter.post('/', async (request, response) => {
-  const { title, date, poster, rating } = request.body;
+  const { title, date, poster_path, rating } = request.body;
   const decodedToken = jwt.verify(request.token, process.env.SECRET);
   if (!decodedToken.id) {
     return response.status(401).json({ error: 'token invalid' });
   }
   const user = await User.findById(decodedToken.id);
 
-  const newMyMovie = new MyMovie({ title, date, poster, rating, user });
+  const newMyMovie = new MyMovie({ title, date, poster_path, rating, user });
   const savedMyMovie = await newMyMovie.save();
   user.movies = user.movies.concat(savedMyMovie._id);
   await user.save();
@@ -60,7 +60,9 @@ myMoviesRouter.put('/:id', async (request, response) => {
   const updatedMyMovie = {
     title: body.title,
     date: body.date,
-    poster: body.poster,
+    overview: body.overview,
+    release_date: body.release_date,
+    poster_path: body.poster_path,
     rating: body.rating,
   };
 
@@ -75,6 +77,15 @@ myMoviesRouter.put('/:id', async (request, response) => {
   }
 
   response.status(200).json(updatedMovie);
+});
+
+myMoviesRouter.delete('/:id', async (request, response) => {
+  const decodedToken = jwt.verify(request.token, process.env.SECRET);
+  if (!decodedToken.id) {
+    return response.status(401).json({ error: 'token invalid' });
+  }
+  await MyMovies.findByIdAndDelete(request.params.id);
+  response.status(204).end();
 });
 
 module.exports = myMoviesRouter;

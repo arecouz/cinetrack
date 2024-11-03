@@ -1,13 +1,14 @@
 import { Star } from 'lucide-react';
 import { useState } from 'react';
 import { postToMyMovies } from '@/services/myMovies';
+import { useToast } from '@/hooks/use-toast';
 
 const MovieRating = ({ movie }) => {
+  const { toast } = useToast();
   const [rating, setRating] = useState(0);
   const [hover, setHover] = useState(0);
 
   const handleClick = (star) => {
-    console.log('Mrating', movie);
     const userPreParse = localStorage.getItem('user');
     const user = JSON.parse(userPreParse);
     const token = user.token;
@@ -16,12 +17,17 @@ const MovieRating = ({ movie }) => {
       const myMovie = {
         title: movie.title,
         date: new Date(),
-        poster: movie.poster_path,
+        poster_path: movie.poster_path,
+        release_date: movie.release_date,
+        overview: movie.overview,
         rating: star,
       };
-      console.log('delete me', myMovie);
-      const response = postToMyMovies(myMovie, token);
-      console.log(response);
+
+      postToMyMovies(myMovie, token);
+      toast({
+        title: movie.title,
+        description: 'added to MyMovies',
+      });
     } catch (error) {
       console.error(error);
     }

@@ -9,7 +9,7 @@ const myMoviesSchema = new mongoose.Schema({
     type: Date,
     required: true,
   },
-  poster: {
+  poster_path: {
     type: String,
     required: true,
   },

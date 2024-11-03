@@ -45,10 +45,8 @@ const LogIn = ({ setUser }) => {
   });
 
   const onSubmit = async (values) => {
-    console.log(values);
     setError(''); // Clear any existing error
     try {
-      console.log('logging in with: ', values);
       const response = await usersServices.login(values);
       setUser(response)
       window.localStorage.setItem('user', JSON.stringify(response));

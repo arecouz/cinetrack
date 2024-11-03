@@ -1,23 +1,28 @@
 // DisplaySearch.js
 import { useNavigate } from 'react-router-dom';
+import FixedRating from './FixedRating';
 
-const DisplaySearch = ({ searchResults, setQuery }) => {
+const DisplaySearch = ({ searchResults, deletable = false }) => {
+  // Default `clickable` to true
   const navigate = useNavigate();
 
   if (!searchResults || searchResults.length === 0) {
-    return <p className="text-gray-500  ml-9">No results</p>;
+    return <p className="text-gray-500 ml-9">No results</p>;
   }
 
   const filteredResults = searchResults.filter((result) => result.poster_path);
 
   if (filteredResults.length === 0) {
-    return <p className="text-gray-500">No results with images found</p>;
+    return <p className="text-gray-500">No results found</p>;
   }
 
   const handleClick = (movie) => {
-    const searchQuery = movie.title
-    setQuery(searchQuery)
-    navigate(`/search/${movie.id}`, { state: { movie, searchQuery } });
+    if (!deletable) {
+      const searchQuery = movie.title;
+      navigate(`/search/${movie.id}`, { state: { movie, searchQuery } });
+    } else {
+      console.log('deletME');
+    }
   };
 
   const getTitleClass = (title) => {
@@ -33,7 +38,7 @@ const DisplaySearch = ({ searchResults, setQuery }) => {
   };
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2 m3">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2 m-3">
       {filteredResults.map((result) => (
         <div
           key={result.id}
@@ -57,6 +62,12 @@ const DisplaySearch = ({ searchResults, setQuery }) => {
               alt={result.title}
               className="max-w-full h-58 object-cover rounded-md"
             />
+            {result.date && (
+              <p className="font-bebas text-4xl mt-3">
+                {result.date.slice(0, 10)}
+              </p>
+            )}
+            {result.rating && <FixedRating rating={result.rating} />}
           </div>
         </div>
       ))}

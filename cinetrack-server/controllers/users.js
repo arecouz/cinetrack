@@ -7,6 +7,11 @@ usersRouter.get('/', async (request, response) => {
   response.status(200).json(users);
 });
 
+usersRouter.get('/:id', async (request, response) => {
+  const user = await User.findById(request.params.id).populate('movies');
+  response.status(200).json(user);
+});
+
 usersRouter.post('/', async (request, response) => {
   const { username, password } = request.body;
   if (password.length < 3) {
@@ -20,6 +25,5 @@ usersRouter.post('/', async (request, response) => {
   const savedUser = await newUser.save();
   response.status(201).json(savedUser);
 });
-
 
 module.exports = usersRouter;
