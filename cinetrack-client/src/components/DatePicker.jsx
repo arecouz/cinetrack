@@ -1,41 +1,48 @@
-"use client";
+'use client';
 
-import * as React from "react";
-import { format } from "date-fns";
-import { Calendar as CalendarIcon } from "lucide-react";
+import * as React from 'react';
+import { format } from 'date-fns';
+import { Calendar as CalendarIcon } from 'lucide-react';
 
-import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
-import { Calendar } from "@/components/ui/calendar";
+import { cn } from '@/lib/utils';
+import { Button } from '@/components/ui/button';
+import { Calendar } from '@/components/ui/calendar';
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/components/ui/popover";
+} from '@/components/ui/popover';
 
-export function DatePicker({ label, defaultDate }) {
+export function DatePicker({ label, defaultDate, onDateChange }) {
   // Initialize date state with defaultDate if provided, otherwise set to undefined
   const [date, setDate] = React.useState(defaultDate || undefined);
+
+  const handleSelectDate = (newDate) => {
+    setDate(newDate);
+    if (onDateChange) {
+      onDateChange(newDate);
+    }
+  };
 
   return (
     <Popover>
       <PopoverTrigger asChild>
         <Button
-          variant={"outline"}
+          variant={'outline'}
           className={cn(
-            "w-[280px] flex items-center justify-center space-x-2 font-normal",
-            !date && "text-muted-foreground"
+            'w-[280px] flex items-center justify-center space-x-2 font-normal',
+            !date && 'text-muted-foreground'
           )}
         >
           <CalendarIcon className="mr-2" />
-          <span>{date ? format(date, "PPP") : label}</span>
+          <span>{date ? format(date, 'PPP') : label}</span>
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-auto p-0">
         <Calendar
           mode="single"
           selected={date}
-          onSelect={setDate}
+          onSelect={handleSelectDate}
           initialFocus
         />
       </PopoverContent>

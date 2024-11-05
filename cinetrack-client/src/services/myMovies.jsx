@@ -15,19 +15,18 @@ export const postToMyMovies = async (movieObject, token) => {
   }
 };
 
-// THIS IS WHERE YOU ARE
-// export const putToMyMovies = async (movieObject, token) => {
-//   try {
-//     const response = await axios.put(
-//       `${SERVER_URL}/api/myMovies`,
-//       movieObject,
-//       { headers: { Authorization: `Bearer ${token}` } }
-//     );
-//     return response;
-//   } catch (error) {
-//     console.error(error);
-//   }
-// };
+export const putToMyMovies = async (movieObject, movieId, token) => {
+  try {
+    const response = await axios.put(
+      `${SERVER_URL}/api/myMovies/${movieId}`,
+      movieObject,
+      { headers: { Authorization: `Bearer ${token}` } }
+    );
+    return response;
+  } catch (error) {
+    console.error(error);
+  }
+};
 
 export const deleteAMyMovies = async (id, token) => {
   try {

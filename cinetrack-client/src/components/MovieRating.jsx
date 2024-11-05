@@ -4,7 +4,12 @@ import { postToMyMovies } from '@/services/myMovies';
 import { useToast } from '@/hooks/use-toast';
 import { useNavigate } from 'react-router-dom';
 
-const MovieRating = ({ movie, initialRating = 0, submitToMyMovies = true }) => {
+const MovieRating = ({
+  movie,
+  initialRating = 0,
+  submitToMyMovies = true,
+  onRatingChange,  // Add callback prop
+}) => {
   const navigate = useNavigate();
   const { toast } = useToast();
   const [rating, setRating] = useState(initialRating);
@@ -15,7 +20,12 @@ const MovieRating = ({ movie, initialRating = 0, submitToMyMovies = true }) => {
   }, [initialRating]);
 
   const handleClick = (star) => {
-    setRating(star); // Set the rating state immediately
+    setRating(star);
+
+    // Trigger the onRatingChange callback
+    if (onRatingChange) {
+      onRatingChange(star);
+    }
 
     if (submitToMyMovies) {
       const userPreParse = localStorage.getItem('user');
@@ -71,5 +81,6 @@ const MovieRating = ({ movie, initialRating = 0, submitToMyMovies = true }) => {
     </div>
   );
 };
+
 
 export default MovieRating;

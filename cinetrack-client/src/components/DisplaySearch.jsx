@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 import FixedRating from './FixedRating';
 import {
   Dialog,
@@ -12,13 +13,19 @@ import {
 import { DatePicker } from './DatePicker';
 import MovieRating from './MovieRating';
 import { Button } from './ui/button';
+import { putToMyMovies } from '@/services/myMovies';
 
 const DisplaySearch = ({
   searchResults,
   deletable = false,
   reversed = false,
+  token,
+  onMovieUpdate = { handleMovieUpdate },
 }) => {
   const navigate = useNavigate();
+  // State for the editing of movie entries
+  const [selectedDate, setSelectedDate] = useState(null);
+  const [selectedRating, setSelectedRating] = useState(null);
 
   if (!searchResults || searchResults.length === 0) {
     return <p className="text-gray-500 ml-9">No results</p>;
@@ -33,6 +40,27 @@ const DisplaySearch = ({
     return <p className="text-gray-500">No results found</p>;
   }
 
+  // For Editing entries
+  const handleSubmit = async (movie) => {
+    const updatedMovie = { ...movie };
+    if (selectedDate) {
+      updatedMovie.date = selectedDate;
+    }
+    if (selectedRating) {
+      updatedMovie.rating = selectedRating;
+    }
+
+    try {
+      await putToMyMovies(updatedMovie, movie.id, token);
+      if (onMovieUpdate) {
+        onMovieUpdate();
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  // For clicking a searched movie
   const handleClick = (movie) => {
     if (!deletable) {
       const searchQuery = movie.title;
@@ -61,7 +89,11 @@ const DisplaySearch = ({
           <Dialog>
             <DialogTrigger asChild>
               <div
-                onClick={() => handleClick(result)}
+                onClick={() => {
+                  setSelectedDate(null);
+                  setSelectedRating(null);
+                  handleClick(result);
+                }}
                 className="border-8 p-4 shadow-sm cursor-pointer hover:border-yellow-400 flex flex-col justify-between h-full"
               >
                 <h2
@@ -105,12 +137,19 @@ const DisplaySearch = ({
                     <DatePicker
                       label={'Change the date?'}
                       defaultDate={result.date}
+                      onDateChange={setSelectedDate}
                     />
                     <MovieRating
                       submitToMyMovies={false}
                       initialRating={result.rating}
+                      onRatingChange={setSelectedRating}
                     />
-                    <Button className="mt-7">submit </Button>
+                    <Button
+                      className="mt-7"
+                      onClick={() => handleSubmit(result)}
+                    >
+                      submit{' '}
+                    </Button>
                   </div>
                 </DialogFooter>
               </DialogContent>
