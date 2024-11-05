@@ -66,7 +66,7 @@ myMoviesRouter.put('/:id', async (request, response) => {
     rating: body.rating,
   };
 
-  const updatedMovie = await MyMovies.findByIdAndUpdate(
+  const updatedMovie = await MyMovie.findByIdAndUpdate(
     request.params.id,
     updatedMyMovie,
     { new: true }
