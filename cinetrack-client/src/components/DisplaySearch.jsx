@@ -14,13 +14,14 @@ import { DatePicker } from './DatePicker';
 import MovieRating from './MovieRating';
 import { Button } from './ui/button';
 import { putToMyMovies } from '@/services/myMovies';
+import { DialogClose } from '@radix-ui/react-dialog';
 
 const DisplaySearch = ({
   searchResults,
   deletable = false,
   reversed = false,
   token,
-  onMovieUpdate = { handleMovieUpdate },
+  onMovieUpdate,
 }) => {
   const navigate = useNavigate();
   // State for the editing of movie entries
@@ -52,9 +53,7 @@ const DisplaySearch = ({
 
     try {
       await putToMyMovies(updatedMovie, movie.id, token);
-      if (onMovieUpdate) {
-        onMovieUpdate();
-      }
+      onMovieUpdate();
     } catch (error) {
       console.error(error);
     }
@@ -65,8 +64,6 @@ const DisplaySearch = ({
     if (!deletable) {
       const searchQuery = movie.title;
       navigate(`/search/${movie.id}`, { state: { movie, searchQuery } });
-    } else {
-      console.log('deletME');
     }
   };
 
@@ -144,12 +141,14 @@ const DisplaySearch = ({
                       initialRating={result.rating}
                       onRatingChange={setSelectedRating}
                     />
-                    <Button
-                      className="mt-7"
-                      onClick={() => handleSubmit(result)}
-                    >
-                      submit{' '}
-                    </Button>
+                    <DialogClose>
+                      <Button
+                        className="mt-7"
+                        onClick={() => handleSubmit(result)}
+                      >
+                        submit{' '}
+                      </Button>
+                    </DialogClose>
                   </div>
                 </DialogFooter>
               </DialogContent>

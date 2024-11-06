@@ -5,7 +5,7 @@ import DisplaySearch from './DisplaySearch';
 const MyMovies = ({ user }) => {
   const [userInfo, setUserInfo] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [refresh, setRefresh] = useState(false); 
+  const [refresh, setRefresh] = useState(false);
 
   // Fetch the user info and movie data when the component mounts or when 'refresh' changes
   useEffect(() => {
@@ -20,12 +20,11 @@ const MyMovies = ({ user }) => {
       }
     };
     fetchUserInfo();
-    console.log(user)
-  }, [user.id, refresh]); 
+  }, [user.id, refresh]);
 
   // Handle movie update by triggering a re-fetch
   const handleMovieUpdate = () => {
-    setRefresh((prev) => !prev); 
+    setRefresh((prev) => !prev);
   };
 
   if (loading) {
@@ -44,7 +43,7 @@ const MyMovies = ({ user }) => {
             deletable={true}
             reversed={true}
             token={user.token}
-            onMovieUpdate={handleMovieUpdate} 
+            onMovieUpdate={handleMovieUpdate}
           />
         </div>
       ) : (

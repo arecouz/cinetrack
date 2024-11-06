@@ -40,7 +40,6 @@ const DisplayMovie = forwardRef((props, ref) => {
     },
   }));
 
-  console.log("IS THIS SPLITABLE: ", movie.release_date)
 
   if (!credits) {
     return <p>Loading...</p>;
