@@ -1,3 +1,5 @@
+const path = require('path');
+
 const config = require('./utils/config');
 const express = require('express');
 require('express-async-errors');
@@ -37,6 +39,12 @@ app.use('/api/login', loginRouter);
 if (process.env.NODE_ENV === 'test') {
   console.log('port: ', process.env.PORT);
   app.use('/api/testing', testingRouter);
+} else {
+  console.log('using dist');
+  app.use(express.static('dist'));
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'dist', 'index.html'));
+  });
 }
 
 app.use(middleware.unknownEndpoint);

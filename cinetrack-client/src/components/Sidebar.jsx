@@ -18,7 +18,7 @@ const Sidebar = ({ scrollToSection, setUser }) => {
   return (
     <div className="flex flex-col h-full">
       <Link to="/search" className="font-bebas text-2xl sm:text-4xl p-1 sm:p-2">
-        CineStack
+        CineTrack
       </Link>
       <nav className="w-fit flex-grow">
         <div className="border-t-8 border-r-8 border-b-0 border-l-0 h-full flex flex-col">
