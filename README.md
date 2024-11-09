@@ -109,24 +109,6 @@ npm run test     # Run tests
 
 This project is configured for deployment on [fly.io](https://fly.io). Deployment files are included in the repository.
 
-## 📱 Screenshots
-
-<div align="center">
-  <img src="https://via.placeholder.com/250x500?text=Mobile+View" alt="Mobile View" width="250"/>
-  <img src="https://via.placeholder.com/250x500?text=Movie+Details" alt="Movie Details" width="250"/>
-  <img src="https://via.placeholder.com/250x500?text=Watchlist" alt="Watchlist" width="250"/>
-</div>
-
-## 🤝 Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
 ## 📄 License
 
 This project is licensed under the ISC License - see the [LICENSE](LICENSE) file for details.
@@ -134,11 +116,10 @@ This project is licensed under the ISC License - see the [LICENSE](LICENSE) file
 ## 👏 Acknowledgments
 
 - [The Movie Database (TMDb)](https://www.themoviedb.org/) for movie data
-- [Radix UI](https://www.radix-ui.com/) for accessible components
-- All our contributors and users!
+- [Shadcn](https://ui.shadcn.com/) for components
 
 ---
 
 <div align="center">
-  Made with ❤️ by [Your Name]
+  Made with ❤️ by Richard Couzens
 </div>
