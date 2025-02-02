@@ -48,7 +48,7 @@ const LogIn = ({ setUser }) => {
     setError(''); // Clear any existing error
     try {
       const response = await usersServices.login(values);
-      setUser(response)
+      setUser(response);
       window.localStorage.setItem('user', JSON.stringify(response));
     } catch (error) {
       console.error(error);
