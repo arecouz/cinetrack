@@ -122,7 +122,10 @@ const DisplaySearch = ({
             {deletable && (
               <DialogContent className="flex flex-col items-center justify-center text-center">
                 <DialogHeader>
-                  <DialogTitle className="font-bebas text-6xl text-center">
+                  <DialogTitle
+                    className="font-bebas text-6xl text-center cursor-pointer hover:text-yellow-400"
+                    onClick={() => console.log('go to movie go here')}
+                  >
                     {result.title}
                   </DialogTitle>
                   <DialogDescription className="font-roboto">
